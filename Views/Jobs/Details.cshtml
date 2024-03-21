@@ -1,0 +1,221 @@
+﻿@model ProjectManager.Models.Job
+
+@{
+	ViewData["Title"] = "Details";
+	ViewData["Subject"] = Model.JobName;
+	ViewData["SubjectID"] = Model.JobID;
+	ViewData["controller"] = "Jobs";
+	ViewData["NewItem"] = "Jobs";
+}
+
+
+<hr class="h-line" />
+
+<div class="subject-data" id="job-data">
+
+	<h1>
+		Job - @ViewData["Subject"]
+	</h1>
+
+	<table class="table-data" id="table-data-job">
+
+		<tr class="table-row">
+			<th class="data-name">
+				Job ID:
+			</th>
+
+			<td class="data">
+				@Model.JobID
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th class="data-name">
+				Jobs Requirements:
+			</th>
+
+			<td class="data">
+				@Model.JobRequirements.Count()
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th class="data-name">
+				Job Components:
+			</th>
+
+			<td class="data">
+				@Model.JobComponents.Count()
+			</td>
+
+		</tr>
+
+	</table>
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="job-OpArea">
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Projects")/@Model?.ProjectID'">
+		<p class="sub-itemOp" id="subject-new-1">Job List</p>
+	</article>
+
+	<article class="sub-itemOp-area" id=" sub-itemOp-area-job" "
+			 type="button"
+			 onclick="location.href='@Url.Action("AddComponents", "Jobs")/@Model?.JobID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Edit Components</p>
+
+	</article>
+
+	<article class="sub-itemOp-area" id=" sub-itemOp-area-job" "
+			 type="button"
+			 onclick="location.href='@Url.Action("AddRequirements", "Jobs")/@Model?.JobID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Edit Requirements</p>
+
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Edit", "Jobs")/@Model?.JobID'">
+		<p class="sub-itemOp" id="subject-new-1">Edit Job</p>
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Delete", "Jobs")/@Model?.JobID'">
+
+		<p class="sub-itemOp" id="sub-itemOp-delete">Delete Job</p>
+
+	</article>
+</section>
+
+<hr class="h-line" />
+
+<!-- Sub Table -->
+<div id="items-container1" class="item-grid">
+
+	<div id="item-grid-header" class="item-grid-row">
+
+		<div class="item-data-id">
+			ID
+		</div>
+
+		<div class="item-data">
+			Components
+		</div>
+
+		<div class="item-data">
+			Responsible
+		</div>
+
+	</div>
+
+	@foreach (var item in ViewBag.components)
+	{
+		string color;
+
+		if (item.Job.Finished == null)
+		{
+			color = "grey";
+		}
+		else if (item.Job.Finished == true)
+		{
+			color = "#aaffaa";
+		}
+		else
+		{
+			color = "orange";
+		}
+
+		<div class="item-grid-row"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Jobs", new { id = item.ComponentID })'">
+
+			<div class="item-data-id" style="background-color: @color">
+				@item.ComponentID
+			</div>
+
+			<div class="item-data">
+				@ViewBag.reqNames[item.ComponentID]
+			</div>
+
+			<div class="item-data">
+				Responsible
+			</div>
+
+		</div>
+
+	}
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub Table -->
+<div id="items-container1" class="item-grid">
+
+	<div id="item-grid-header" class="item-grid-row">
+
+		<div class="item-data-id">
+			ID
+		</div>
+
+		<div class="item-data">
+			Requirement
+		</div>
+
+		<div class="item-data">
+			Responsible
+		</div>
+
+	</div>
+
+	@foreach (var item in ViewBag.requirements)
+	{
+		string color;
+		if (item.Job.Finished == null)
+		{
+			color = "grey";
+		}
+		else if (item.Job.Finished == true)
+		{
+			color = "#aaffaa";
+		}
+		else
+		{
+			color = "orange";
+		}
+		<div class="item-grid-row"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Jobs", new { id = item.RequirementID })'">
+
+			<div class="item-data-id" style="background-color: @color">
+				@item.RequirementID
+			</div>
+
+			<div class="item-data">
+				@ViewBag.reqNames[item.RequirementID]
+			</div>
+
+			<div class="item-data">
+				Responsible
+			</div>
+
+		</div>
+
+	}
+
+</div>
+
+<hr class="h-line" />

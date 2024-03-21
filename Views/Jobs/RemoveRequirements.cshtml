@@ -1,0 +1,27 @@
+﻿@model ProjectManager.Models.Job
+
+@{
+	ViewData["Title"] = "Remove Requirements";
+}
+
+<hr class="h-line" />
+
+
+<form asp-action="RemoveRequirements" class="grid-container">
+
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div>Requirements</div>
+
+	@{
+		List<int> ids = new List<int>();
+	}
+
+	@foreach (var item in @Model.JobRequirements)
+	{
+		<hr class="h-line" />
+		<a asp-controller="JobRequirements" asp-action="Delete" asp-route-id="@item.JobRequirementID">@item.JobRequirementID </a>
+		<hr class="h-line" />
+	}
+</form>
+
+<hr class="h-line" />

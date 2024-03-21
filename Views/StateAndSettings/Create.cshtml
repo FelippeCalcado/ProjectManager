@@ -1,0 +1,36 @@
+﻿@model ProjectManager.Models.StateAndSettings
+
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>StateAndSettings</h4>
+
+<container class="staset-create-container">
+	<form asp-action="Create">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="form-group">
+			<label asp-for="ActiveJob" class="control-label"></label>
+			<select asp-for="ActiveJob" class="form-control" asp-items="ViewBag.Jobs"></select>
+		</div>
+		<div class="form-group">
+			<label asp-for="ActivePerson" class="control-label"></label>
+			<select asp-for="ActivePerson" class="form-control" asp-items="ViewBag.People"></select>
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Create" class="btn btn-primary" />
+		</div>
+	</form>
+</container>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

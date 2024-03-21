@@ -1,0 +1,90 @@
+﻿@model ProjectManager.Models.Field
+
+@{
+	ViewData["Title"] = "Edit";
+	ViewData["Subject"] = Model.FieldName;
+	ViewData["SubjectID"] = Model.FieldID;
+	ViewData["controller"] = "Fields";
+	ViewData["NewItem"] = "Projects";
+}
+
+
+
+<div class="subject-data" id="field-data">
+
+	<h1>
+		Field - @ViewData["Subject"]
+	</h1>
+
+	<table class="table-data" id="table-data-field">
+
+		<tr class="table-row">
+			<th class="data-name">
+				Field ID:
+			</th>
+
+			<td class="data">
+				@Model.FieldID
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th class="data-name">
+				Projects:
+			</th>
+
+			<td class="data">
+				@Model.Projects.Count()
+			</td>
+
+		</tr>
+
+	</table>
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="field-OpArea">
+
+	<article class="sub-itemOp-area" id="sub-itemOp-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Fields")/@Model?.FieldID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Field Details</p>
+
+	</article>
+</section>
+
+<hr class="h-line" />
+
+
+<div class="form-container">
+
+	<form asp-action="Edit" class="grid-container">
+
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<input type="hidden" asp-for="FieldID" />
+
+		<div class="create-grid">
+
+			<label asp-for="FieldName" class="label-cell">Field Name:</label>
+			<input asp-for="FieldName" class="input-cell" />
+			<span asp-validation-for="FieldName" class="text-danger"></span>
+		</div>
+		<div class="button-cell">
+			<div class="center-cell">
+				<input type="submit" value="Save" class="button-text" />
+			</div>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

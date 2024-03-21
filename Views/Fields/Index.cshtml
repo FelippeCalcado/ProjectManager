@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ProjectManager.Models.Field>
+@using ProjectManager.JSON_Utils;
+
+@{
+	ViewData["Title"] = "Index";
+	ViewData["Subject"] = "Field";
+	ViewData["controller"] = "Fields";
+}
+
+
+<div class="subject-data" id="Field-data">
+
+	<h1>
+		@ViewData["Subject"] - @ViewData["Title"]
+	</h1>
+
+	<table class="table-data" id="table-data-field">
+
+
+		<tr>
+
+			<th class="data-name">
+				Fields:
+			</th>
+
+			<td class="data">
+				@Model.Count()
+			</td>
+
+		</tr>
+
+	</table>
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="field-OpArea">
+
+	<article class="sub-itemOp-area" id=" sub-itemOp-area-job" "
+			 type="button"
+			 onclick="location.href='@Url.Action("Create", "Fields")'">
+
+		<p class="sub-itemOp" id="subject-new-1">Add Field</p>
+
+	</article>
+</section>
+
+
+<hr class="h-line" />
+
+<!-- Sub Table -->
+<div id="items-container1" class="item-grid">
+
+	<div id="item-grid-header" class="item-grid-row">
+
+		<div class="item-data">
+			ID
+		</div>
+
+		<div class="item-data">
+			Field
+		</div>
+
+		<div class="item-data">
+			Manager
+		</div>
+
+	</div>
+
+	@foreach (var item in Model)
+	{
+
+		<div class="item-grid-row"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Fields")/@item.FieldID'">
+
+			<div class="item-data">
+				@item.FieldID
+			</div>
+
+			<div class="item-data">
+				@item.FieldName
+			</div>
+
+			<div class="item-data">
+				Manager
+			</div>
+
+		</div>
+
+	}
+</div>
+

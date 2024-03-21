@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ProjectManager.Models.StateAndSettings>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+
+<div>
+	<div>
+		Active Job: 
+	</div>
+	<div>
+		@ViewBag.ActiveJob.JobName
+	</div>
+	<div>
+		Active Person:
+	</div>
+	<div>
+		@ViewBag.ActivePerson.GivenNames @ViewBag.ActivePerson.FamilyNames
+	</div>
+</div>

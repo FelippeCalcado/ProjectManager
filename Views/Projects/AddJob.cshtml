@@ -1,0 +1,46 @@
+﻿@model ProjectManager.Models.Project
+
+@{
+	ViewData["Title"] = "AddJob";
+}
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="field-OpArea">
+
+	<article class="sub-itemOp-area" id="sub-itemOp-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Projects")/@Model?.ProjectID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Project List</p>
+
+	</article>
+</section>
+
+<hr class="h-line" />
+
+<div class="">
+
+	<form asp-action="AddJob" class="grid-container">
+
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+		<div class="create-grid">
+
+			<label class="create-cell" for="jobName">Job Name:</label>
+			<input class="create-cell" type="text" name="jobName" />
+			<span class="create-cell"></span>
+		</div>
+		<div class="create-grid">
+			<label class="create-cell" for="timeEstimation">Time Estimation:</label>
+			<input class="create-cell" type="text" name="timeEstimation" />
+			<span class="create-cell"></span>
+		</div>
+		<div class="save-button">
+			<input type="submit" value="Create" class="button-text" />
+		</div>
+	</form>
+</div>
+
+

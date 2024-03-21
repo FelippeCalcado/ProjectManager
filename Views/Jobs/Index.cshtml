@@ -1,0 +1,121 @@
+﻿@model IEnumerable<ProjectManager.Models.Job>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+<table id="tbl" class="table">
+	<thead>
+		<tr>
+			<th>
+
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.JobID)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.JobName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TimeEstimation)
+			</th>
+			<th>
+				Project Id
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Project)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@{
+			var n = 0;
+		}
+		@foreach (var item in Model)
+		{
+			string color;
+			if (item.JobID == @ViewBag.activeJob)
+			{
+				//color = "background-color: red;";
+				color = "#ddd";
+				Console.Write(color + "-");
+				Console.Write(item.JobID + "-");
+				Console.Write(@ViewBag.activeJob);
+				Console.WriteLine("");
+			}
+			else
+			{
+				//color = "background-color: #000;";
+				color = "#fff";
+				Console.WriteLine(color);
+
+			}
+
+			<tr>
+				<td>
+					<a asp-controller="Jobs" asp-action="Activate" asp-route-id="@item.JobID">Activate</a>
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.JobID)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.JobName)
+				</td>
+				<td>
+					@{
+						string tExt;
+						if(item.TimeEstimation >= 3600000)
+						{
+							tExt = (item.TimeEstimation / 3600000).ToString()+"h";
+						}
+						else
+						{
+							tExt = (item.TimeEstimation / 60000).ToString()+"min";
+						}
+
+						
+					}
+					@tExt
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Project.ProjectID)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Project.ProjectName)
+				</td>
+				<td>
+
+					<a asp-action="Edit" asp-route-id="@item.JobID">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.JobID">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.JobID">Delete</a>
+				</td>
+			</tr>
+
+			n = n + 1;
+
+
+		}
+	</tbody>
+</table>
+<div bgcolor='red'
+	 type="button"
+	 onclick="location.href='@Url.Action("Deactivate", "Jobs")'">
+	Stop
+</div>
+
+
+<script src="~/js/site.js" asp-append-version="true">
+
+</script>
+
+<!--
+bgcolor=color
+type="button"
+onclick="location.href='Url.Action("Activate", "Jobs")/item.JobID'"
+-->

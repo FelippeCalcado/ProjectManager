@@ -1,0 +1,168 @@
+﻿@model ProjectManager.Models.Job
+
+@{
+	ViewData["Title"] = "Add Requirements";
+	ViewData["Subject"] = Model.JobName;
+}
+
+
+<hr class="h-line" />
+
+<div class="subject-data" id="job-data">
+
+	<h1>
+		Job - @ViewData["Subject"]
+	</h1>
+
+	<table class="table-data" id="table-data-job">
+
+		<tr class="table-row">
+			<th class="data-name">
+				Job ID:
+			</th>
+
+			<td class="data">
+				@Model.JobID
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th class="data-name">
+				Jobs Requirements:
+			</th>
+
+			<td class="data">
+				@Model.JobRequirements.Count()
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th class="data-name">
+				Job Components:
+			</th>
+
+			<td class="data">
+				@Model.JobComponents.Count()
+			</td>
+
+		</tr>
+
+	</table>
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="field-OpArea">
+
+	<article class="sub-itemOp-area" id="sub-itemOp-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Jobs")/@Model?.JobID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Job Detail</p>
+
+	</article>
+</section>
+
+
+<hr class="h-line" />
+<!-- Display / Remove Requirements -->
+<div id="items-container1" class="item-grid">
+	<div class="grid-container">
+
+		@foreach (var jr in Model.JobRequirements)
+		{
+			string color;
+
+			if (jr.Job.Finished == null)
+			{
+				color = "grey";
+			}
+			else if (jr.Job.Finished == true)
+			{
+				color = "#aaffaa";
+			}
+			else
+			{
+				color = "orange";
+			}
+			<form asp-action="RemoveRequirements">
+
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+				<div class="item-grid-row">
+
+					<div class="item-data" style="background-color: @color">
+						@jr.RequirementID
+					</div>
+
+					<div class="item-data">
+						@jr.Requirement.JobName
+					</div>
+					<input class="create-cell" type="hidden" name="JobRequirementID" value="@jr.JobRequirementID" />
+					<input class="create-cell" type="hidden" name="id" value="@Model.JobID" />
+
+					<input type="submit" value="Remove" class="items-data" />
+				</div>
+
+			</form>
+		}
+	</div>
+</div>
+
+<!-- Sub options Area -->
+<!-- Display / Remove Requirements -->
+<div id="items-container1" class="item-grid">
+	<div class="grid-container">
+
+		@foreach (Job j in ViewBag.nonRequirements)
+		{
+			string color;
+
+			if (j.Finished == null)
+			{
+				color = "grey";
+			}
+			else if (j.Finished == true)
+			{
+				color = "#aaffaa";
+			}
+			else
+			{
+				color = "orange";
+			}
+			<form asp-action="AddRequirements">
+
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+				<div class="item-grid-row">
+
+					<div class="item-data" style="background-color: @color">
+						@j.JobID
+					</div>
+
+					<div class="item-data">
+						@j.JobName
+					</div>
+
+					<input class="item-data" type="hidden" name="RequirementID" value="@j.JobID" />
+					<input class="item-data" type="hidden" name="id" value="@Model.JobID" />
+
+					<input type="submit" value="Add" class="item-data-input" />
+				</div>
+
+			</form>
+		}
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

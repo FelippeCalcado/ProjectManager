@@ -1,0 +1,69 @@
+﻿@model ProjectManager.Models.Field
+
+@{
+	ViewData["Title"] = "Create";
+}
+
+
+
+<div class="subject-data" id="field-data">
+
+	<h1>
+		Field - @ViewData["Title"]
+	</h1>
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="field-OpArea">
+
+	<article class="sub-itemOp-area" id="sub-itemOp-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Index", "Fields")'">
+
+		<p class="sub-itemOp" id="subject-new-1">Field List</p>
+
+	</article>
+</section>
+
+<hr class="h-line" />
+
+
+
+
+
+
+<div class="form-container">
+
+	<form asp-action="Create" class="grid-container">
+
+		<div asp-validation-summary="ModelOnly"></div>
+
+		<div class="create-grid">
+
+			<label asp-for="FieldName" class="label-cell">New Field Name:</label>
+			<input asp-for="FieldName" class="input-cell" />
+			<span asp-validation-for="FieldName" class="text-danger"></span>
+
+		</div>
+		<div class="button-cell">
+
+			<div class="center-cell">
+
+				<input type="submit" value="Create" class="button-text" />
+
+			</div>
+		</div>
+
+	</form>
+
+</div>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

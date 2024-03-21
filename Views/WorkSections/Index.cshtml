@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ProjectManager.Models.WorkSection>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<a asp-action="IndexToday">Today</a>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Person)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Job)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.End)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            var t1 = item.End;
+            var t0 = item.Start;
+            TimeSpan? deltaTime = (t1 - t0);
+            <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Person.FamilyNames), @Html.DisplayFor(modelItem => item.Person.GivenNames)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Job.JobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End)
+            </td>
+                <td>
+                <td>
+                    @deltaTime
+                </td>
+                <a asp-action="Edit" asp-route-id="@item.WorkSectionID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.WorkSectionID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.WorkSectionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

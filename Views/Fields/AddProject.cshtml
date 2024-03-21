@@ -1,0 +1,49 @@
+﻿@model ProjectManager.Models.Field
+
+@{
+	ViewData["Title"] = "AddProject";
+}
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="field-OpArea">
+
+	<article class="sub-itemOp-area" id="sub-itemOp-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Fields")/@Model?.FieldID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Field Details</p>
+
+	</article>
+
+</section>
+
+<hr class="h-line" />
+
+
+<div class="form-container">
+
+	<form asp-action="AddProject" class="grid-container">
+
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+		<div class="create-grid">
+
+			<label class="label-cell" for="projectName">New Project Name:</label>
+			<input class="input-cell" type="text" name="projectName" />
+			<span class="create-cell"></span>
+
+		</div>
+
+		<div class="button-cell">
+			<div class="center-cell">
+				<input type="submit" value="Create" class="button-text" />
+			</div>
+		</div>
+
+	</form>
+
+</div>
+
+

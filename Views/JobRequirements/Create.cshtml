@@ -1,0 +1,41 @@
+﻿@model ProjectManager.Models.JobRequirement
+
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>JobRequirement</h4>
+<hr />
+
+
+
+
+<div class="form-container">
+
+	<form asp-action="Create" class="grid-container">
+
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<input type="hidden" asp-for="JobID" />
+
+		<div class="proj-edit-create-grid">
+
+			<label asp-for="RequirementID" class="control-label"></label>
+			<select asp-for="RequirementID" class="form-control" asp-items="ViewBag.RequirementID"></select>
+		</div>
+		<div class="form-group">
+			<input type="submit" value="Save" class="button-text" />
+		</div>
+	</form>
+</div>
+
+<div class="button-cell">
+	<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

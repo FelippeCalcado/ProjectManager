@@ -1,0 +1,143 @@
+﻿@model ProjectManager.Models.Project
+
+@{
+	ViewData["Title"] = "Details";
+	ViewData["Subject"] = Model.ProjectName;
+	ViewData["SubjectID"] = Model.ProjectID;
+	ViewData["controller"] = "Projects";
+	ViewData["NewItem"] = "Jobs";
+}
+
+
+<hr class="h-line" />
+
+<div class="subject-data" id="project-data">
+
+	<h1>
+		Project - @ViewData["Subject"]
+	</h1>
+
+	<table class="table-data" id="table-data-project">
+
+		<tr class="table-row">
+			<th class="data-name">
+				Project ID:
+			</th>
+
+			<td class="data">
+				@Model.ProjectID
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th class="data-name">
+				Jobs:
+			</th>
+
+			<td class="data">
+				@Model.Jobs.Count()
+			</td>
+
+		</tr>
+
+	</table>
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="proj-OpArea">
+
+	<article class="sub-itemOp-area" id=" sub-itemOp-area-1" "
+			 type="button"
+			 onclick="location.href='@Url.Action("AddJob", "Projects")/@Model?.ProjectID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Add Job</p>
+
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Edit", "Projects")/@Model?.ProjectID'">
+		<p class="sub-itemOp" id="subject-new-1">Edit Project</p>
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Fields")/@Model?.FieldID'">
+		<p class="sub-itemOp" id="subject-new-1">Field Details</p>
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Delete", "Projects")/@Model?.ProjectID'">
+
+		<p class="sub-itemOp" id="sub-itemOp-delete">Delete Project</p>
+
+	</article>
+</section>
+
+
+<hr class="h-line" />
+
+<!-- Sub Table -->
+<div id="items-container1" class="item-grid">
+
+	<div id="item-grid-header" class="item-grid-row">
+
+		<div class="item-data-id">
+			ID
+		</div>
+
+		<div class="item-data">
+			Job
+		</div>
+
+		<div class="item-data">
+			Manager
+		</div>
+
+	</div>
+
+	@foreach (Job item in Model.Jobs.OrderBy(n => n.JobName))
+	{
+
+		string color;
+		if (item.Finished == null)
+		{
+			color = "grey";
+		}
+		else if (item.Finished == true)
+		{
+			color = "#aaffaa";
+		}
+		else
+		{
+			color = "orange";
+		}
+
+
+		<div class="item-grid-row"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Jobs")/@item.JobID'">
+
+			<div class="item-data-id" style="background-color: @color">
+				@item.JobID
+			</div>
+
+			<div class="item-data">
+				@item.JobName
+			</div>
+
+			<div class="item-data">
+				Responsible
+			</div>
+
+		</div>
+
+	}
+
+</div>

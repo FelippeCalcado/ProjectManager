@@ -1,0 +1,129 @@
+﻿@model ProjectManager.Models.Field
+
+@{
+	ViewData["Title"] = "Details";
+	ViewData["Subject"] = Model.FieldName;
+	ViewData["SubjectID"] = Model.FieldID;
+	ViewData["controller"] = "Fields";
+	ViewData["NewItem"] = "Projects";
+}
+
+
+
+<div class="subject-data" id="field-data">
+
+	<h1>
+		Field - @ViewData["Subject"]
+	</h1>
+
+	<table class="table-data" id="table-data-field">
+
+		<tr class="table-row">
+			<th class="data-name">
+				Field ID:
+			</th>
+
+			<td class="data">
+				@Model.FieldID
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<th class="data-name">
+				Projects:
+			</th>
+
+			<td class="data">
+				@Model.Projects.Count()
+			</td>
+
+		</tr>
+
+	</table>
+
+</div>
+
+<hr class="h-line" />
+
+<!-- Sub options Area -->
+<section class="sub-options" id="field-OpArea">
+
+	<article class="sub-itemOp-area" id="sub-itemOp-area-1" 
+			 type="button"
+			 onclick="location.href='@Url.Action("AddProject", "Fields")/@Model?.FieldID'">
+
+		<p class="sub-itemOp" id="subject-new-1">Add Project</p>
+
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Edit", "Fields")/@Model?.FieldID'">
+		<p class="sub-itemOp" id="subject-new-1">Edit Field</p>
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Index", "Fields")'">
+		<p class="sub-itemOp" id="subject-new-1">Field List</p>
+	</article>
+
+	<article class="sub-itemOp-area" id="subject-new-area-1"
+			 type="button"
+			 onclick="location.href='@Url.Action("Delete", "Fields")/@Model?.FieldID'">
+
+		<p class="sub-itemOp" id="sub-itemOp-delete">Delete Field</p>
+
+	</article>
+</section>
+
+
+<hr class="h-line" />
+
+<!-- Sub Table -->
+<div id="items-container1" class="item-grid">
+
+	<div id="item-grid-header" class="item-grid-row">
+
+		<div class="item-data">
+			ID
+		</div>
+
+		<div class="item-data">
+			Project
+		</div>
+
+		<div class="item-data">
+			Manager
+		</div>
+
+	</div>
+
+	@foreach (var item in Model.Projects.OrderBy(n => n.ProjectName))
+	{
+
+		<div class="item-grid-row"
+			 type="button"
+			 onclick="location.href='@Url.Action("Details", "Projects")/@item.ProjectID'">
+
+			<div class="item-data">
+				@item.ProjectID
+			</div>
+
+			<div class="item-data">
+				@item.ProjectName
+			</div>
+
+			<div class="item-data">
+				Manager
+			</div>
+
+		</div>
+
+	}
+
+</div>
+
+
